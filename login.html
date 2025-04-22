@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <script async src="https://telegram.org/js/telegram-widget.js?7"
-            data-telegram-login="LuckTableBot"
-            data-size="large"
-            data-radius="10"
-            data-userpic="false"
-            data-lang="ar"
-            data-request-access="write"
-            data-onauth="onTelegramAuth(user)">
-    </script>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول عبر Telegram</title>
 
-    <script type="text/javascript">
-        function onTelegramAuth(user) {
-          TelegramAndroid.onAuth(JSON.stringify(user));
-        }
-    </script>
+  <script async src="https://telegram.org/js/telegram-widget.js?7"
+          data-telegram-login="morbybot"
+          data-size="large"
+          data-radius="10"
+          data-userpic="false"
+          data-lang="ar"
+          data-request-access="write"
+          data-onauth="onTelegramAuth(user)">
+  </script>
+
+  <script type="text/javascript">
+    function onTelegramAuth(user) {
+      // ✅ عند نجاح الدخول سيتم عرض البيانات
+      document.body.innerHTML = `
+        <div style="text-align:center; margin-top: 20vh;">
+          <h2>✅ تم تسجيل الدخول بنجاح</h2>
+          <p><strong>ID:</strong> ${user.id}</p>
+          <p><strong>Username:</strong> @${user.username}</p>
+          <p><strong>Name:</strong> ${user.first_name}</p>
+        </div>
+      `;
+
+      // إذا كنت تستخدم WebView في أندرويد:
+      if (window.TelegramAndroid && TelegramAndroid.onAuth) {
+        TelegramAndroid.onAuth(JSON.stringify(user));
+      }
+    }
+  </script>
 </head>
-<body style="display: flex; align-items: center; justify-content: center; height: 100vh; background-color: #fafafa;">
-
+<body style="display: flex; align-items: center; justify-content: center; height: 100vh; background-color: #f4f4f4;">
 </body>
 </html>
