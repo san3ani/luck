@@ -18,17 +18,17 @@
 
 
      <script>
-    function onTelegramAuth(user) {
-  // مرر البيانات في الرابط
-  const params = new URLSearchParams({
-    id: user.id,
-    username: user.username,
-    name: ${user.first_name} ${user.last_name || ''},
-    photo: user.photo_url
-  });
-  window.location.href = "http://173.71.208.116:8081/luckgamebot-1.0/active_games.html?" + params.toString();
-}
+  function onTelegramAuth(user) {
+    // مرر البيانات في الرابط
+    const params = new URLSearchParams({
+      id: user.id,
+      username: user.username,
+      name: `${user.first_name} ${user.last_name || ''}`,
+      photo: user.photo_url
+    });
+    window.location.href = "http://173.71.208.116:8081/luckgamebot-1.0/active_games.html?" + params.toString();
+  }
+</script>
 
-  </script>
 </body>
 </html>
