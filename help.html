@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>فعالية مسابقة رمضان — تحدي تحرير فلسطين</title>
+
+<style>
+:root{
+  --bg:#f4f6fb;
+  --card:#ffffff;
+  --card2:#fbfcff;
+  --line:#e5e9f2;
+
+  --text:#111827;
+  --muted:#4b5563;
+  --soft:#6b7280;
+
+  --primary:#2563eb;
+  --green:#16a34a;
+  --gold:#eab308;
+  --red:#dc2626;
+  --slate:#0f172a;
+
+  --shadow:0 10px 34px rgba(0,0,0,.06);
+  --shadow2:0 16px 50px rgba(0,0,0,.10);
+  --radius:20px;
+
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--sans);
+  background:
+    radial-gradient(900px 520px at 90% 0%, rgba(37,99,235,.10), transparent 60%),
+    radial-gradient(820px 520px at 10% 0%, rgba(22,163,74,.10), transparent 58%),
+    linear-gradient(180deg, #f7f9ff, var(--bg));
+  color:var(--text);
+}
+
+.wrap{
+  max-width:980px;
+  margin:auto;
+  padding:18px 14px 56px;
+}
+
+/* ===== HERO ===== */
+.hero{
+  background:linear-gradient(135deg,#e0e7ff,#ffffff);
+  border-radius:var(--radius);
+  padding:20px 18px 16px;
+  box-shadow:var(--shadow);
+  border:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  right:-140px;
+  top:-140px;
+  width:320px;height:320px;
+  background: radial-gradient(circle at 30% 30%, rgba(234,179,8,.18), transparent 58%),
+              radial-gradient(circle at 70% 65%, rgba(37,99,235,.14), transparent 62%);
+  transform: rotate(8deg);
+  pointer-events:none;
+}
+
+.badges{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;
+}
+.badge{
+  background:#fff;
+  border:1px solid var(--line);
+  padding:7px 12px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:13px;
+  color:var(--muted);
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+h1{
+  margin:8px 0 6px;
+  font-size:clamp(22px,3vw,32px);
+  font-weight:980;
+  letter-spacing:.1px;
+}
+.subtitle{
+  margin:0;
+  color:var(--muted);
+  line-height:1.95;
+  font-size:15px;
+  position:relative;
+  z-index:1;
+}
+
+.quick{
+  margin-top:12px;
+  display:flex;flex-wrap:wrap;gap:10px;
+}
+.pill{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,.04);
+  color:var(--soft);
+  font-weight:950;
+  font-size:13px;
+}
+.dot{width:10px;height:10px;border-radius:999px;background:var(--green); box-shadow:0 0 0 4px rgba(22,163,74,.14)}
+.dot.red{background:var(--red); box-shadow:0 0 0 4px rgba(220,38,38,.12)}
+.dot.gold{background:var(--gold); box-shadow:0 0 0 4px rgba(234,179,8,.14)}
+
+.actions{
+  margin-top:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.actionBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,.04);
+  color:var(--text);
+  font-weight:950;
+  cursor:pointer;
+  user-select:none;
+  transition:transform .08s ease, filter .18s ease;
+}
+.actionBtn:active{transform:scale(.98)}
+.actionBtn:hover{filter:brightness(.99)}
+
+/* ===== Highlight blocks ===== */
+.highlights{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:10px;
+}
+@media(max-width:860px){ .highlights{grid-template-columns:1fr} }
+
+.callout{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:18px;
+  padding:12px 14px;
+  box-shadow:var(--shadow);
+}
+.callout h3{
+  margin:0 0 6px;
+  font-size:15.5px;
+  font-weight:980;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.callout p{margin:0;color:var(--muted);line-height:1.9;font-weight:800}
+.badgeMini{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--card2);
+  font-weight:950;
+  color:var(--muted);
+  font-size:12.5px;
+  margin-top:10px;
+}
+.iconDot{
+  width:10px;height:10px;border-radius:999px;background:var(--primary);
+  box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+.iconDot.red{background:var(--red); box-shadow:0 0 0 4px rgba(220,38,38,.10)}
+.iconDot.gold{background:var(--gold); box-shadow:0 0 0 4px rgba(234,179,8,.12)}
+
+/* Progress */
+.progressWrap{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.progressTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  font-weight:950;
+  color:var(--muted);
+  font-size:13px;
+}
+.progress{
+  height:12px;
+  border-radius:999px;
+  background:#eef2ff;
+  border:1px solid #dbe3ff;
+  overflow:hidden;
+}
+.progress > span{
+  display:block;
+  height:100%;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(37,99,235,.92), rgba(22,163,74,.82));
+}
+
+/* ===== TABS (details) ===== */
+details{
+  margin-top:14px;
+  background:var(--card);
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+summary{
+  list-style:none;
+  cursor:pointer;
+  padding:15px 16px;
+  font-weight:980;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  color:var(--text);
+}
+summary::-webkit-details-marker{display:none}
+
+.sumLeft{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:16px;
+}
+
+.chev{
+  width:34px;height:34px;border-radius:12px;
+  border:1px solid var(--line);
+  background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);
+  transition:transform .18s ease;
+  flex:0 0 auto;
+}
+details[open] .chev{transform:rotate(180deg)}
+
+.content{
+  border-top:1px solid var(--line);
+  padding:16px;
+  color:var(--muted);
+  line-height:2;
+  font-size:15px;
+}
+
+hr.sep{
+  border:none;
+  border-top:1px solid var(--line);
+  margin:14px 0;
+}
+
+/* ===== KPI ===== */
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:10px;
+  margin-top:10px;
+}
+@media(max-width:520px){.kpis{grid-template-columns:1fr}}
+
+.kpi{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px 12px;
+  background:var(--card2);
+}
+.kpi .label{font-size:13px;font-weight:950;color:var(--soft)}
+.kpi .value{font-size:18px;font-weight:980;color:var(--text);margin-top:2px}
+.kpi .sub{font-size:12.5px;color:var(--muted);font-weight:850;margin-top:2px}
+
+/* ===== Note / Alerts ===== */
+.alert{
+  margin-top:10px;
+  border-radius:16px;
+  padding:12px 14px;
+  font-weight:950;
+  line-height:1.9;
+  border:1px solid;
+}
+.alert strong{color:inherit}
+.alert.blue{ border-color: rgba(37,99,235,.25); background: rgba(37,99,235,.06); color:#1f3a8a; }
+.alert.red{ border-color: rgba(220,38,38,.22); background: rgba(220,38,38,.07); color:#7f1d1d; }
+.alert.gold{ border-color: rgba(234,179,8,.26); background: rgba(234,179,8,.10); color:#7c5b00; }
+.alert.green{ border-color: rgba(22,163,74,.22); background: rgba(22,163,74,.07); color:#14532d; }
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:999px;
+  padding:8px 12px;
+  font-weight:980;
+  color:var(--text);
+  font-size:13px;
+}
+
+/* Cities */
+.cities{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:10px;
+  margin-top:10px;
+}
+@media(max-width:520px){.cities{grid-template-columns:1fr}}
+.city{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px;
+  font-weight:980;
+  background:var(--card2);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  color:var(--text);
+}
+.city span{color:var(--soft);font-weight:950}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.step{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px;
+  background:var(--card2);
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:12px;
+  align-items:flex-start;
+}
+.num{
+  width:38px;height:38px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--primary);
+  font-weight:980;
+  flex:0 0 auto;
+}
+.step h3{
+  margin:0;
+  font-size:15.5px;
+  font-weight:980;
+  color:var(--text);
+}
+.step p{margin:6px 0 0;color:var(--muted);font-weight:850;line-height:1.9}
+
+/* Commands */
+.cmdRow{
+  margin-top:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.cmd{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:#fff;
+  flex:1 1 300px;
+  min-width:240px;
+}
+.cmd code{
+  font-family:var(--mono);
+  font-size:13px;
+  color:rgba(17,24,39,.92);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  flex:1 1 auto;
+  background:transparent;
+}
+.btn{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  padding:10px 12px;
+  font-weight:980;
+  cursor:pointer;
+  transition:transform .08s ease, filter .18s ease;
+  min-width:86px;
+}
+.btn:active{transform:scale(.98)}
+.btn:hover{filter:brightness(.97)}
+
+/* FAQ */
+.faq{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.faq details{
+  margin-top:0;
+  box-shadow:none;
+  border-radius:16px;
+  background:var(--card2);
+}
+.faq summary{
+  padding:12px 12px;
+  font-weight:980;
+  font-size:15px;
+}
+.faq .content{
+  padding:12px 12px 14px;
+  font-size:14.5px;
+}
+
+/* Floating top button */
+.fab{
+  position:fixed;
+  right:14px;
+  bottom:18px;
+  width:46px;height:46px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:#fff;
+  box-shadow:var(--shadow2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  font-weight:980;
+  color:var(--slate);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index:9998;
+}
+.fab.show{opacity:1; pointer-events:auto; transform: translateY(-4px);}
+.smallHint{
+  margin-top:10px;
+  color:var(--soft);
+  font-weight:900;
+  font-size:13px;
+}
+.smallHint b{color:var(--text)}
+code{
+  display:inline-block;
+  direction:rtl;
+  unicode-bidi:plaintext; 
+  text-align:right;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap" id="top">
+
+  <section class="hero">
+    <div class="badges">
+      <div class="badge">🌙 <strong>فعالية مسابقة رمضان</strong></div>
+      <div class="badge">🇵🇸 <strong>تحدي تحرير فلسطين</strong></div>
+      
+    </div>
+
+    <h1>تحدي رمضان — نظام جديد ومختلف</h1>
+    <p class="subtitle">
+      رمضان كريم على الجميع 🌿
+      رزقنا الله وإياكم صومه وقيامه والعمل الصالح فيه، ونسأل الله تعالى أن لا يمضي علينا رمضان إلا وذنوبنا مغفورة.
+      هذا العام التحدي رمزي بعنوان <strong>تحرير فلسطين</strong> عبر التنافس العلمي في مجالات القرآن والسنة وما يتعلق برمضان.
+    </p>
+
+    <div class="quick">
+      <div class="pill"><span class="dot gold"></span> 10 مدن — 10 فائزين كحد أقصى</div>
+      <div class="pill"><span class="dot"></span> 120 مسابقة لتحرير مدينة</div>
+      <div class="pill"><span class="dot red"></span> شرط النجاح: 90% فأعلى</div>
+    </div>
+
+    </section>
+
+  <!-- Tabs -->
+  <details id="tab-awards">
+    <summary>
+      <div class="sumLeft">🏆 كيفية الفوز وجوائز الفائزين</div>
+      <div class="chev">⌄</div>
+    </summary>
+
+    <div class="content">
+      <p>
+        التنافس <strong>فردي بالكامل</strong>. سيكون لدينا <strong>10 فائزين كحد أقصى</strong> (بعدد المدن المطروحة).
+      </p>
+
+      <div class="kpis">
+        <div class="kpi">
+          <div class="label">💵 جائزة مالية</div>
+          <div class="value">50 دولار</div>
+          <div class="sub">أو ما يعادلها</div>
+        </div>
+        <div class="kpi">
+          <div class="label">🪙 بوتكوين</div>
+          <div class="value">30,000 بوتكوين</div>
+          <div class="sub">بوتكوين — وليس بتكوين</div>
+        </div>
+      </div>
+
+      <div class="alert blue">
+        ✅ <strong>الفائز</strong> هو المتسابق الذي يتمكّن من <strong>تحرير مدينة واحدة كاملة</strong> من المدن العشر وفق شروط التحدي.
+      </div>
+
+      <div class="alert red">
+        🎯 <strong>مدينة واحدة فقط:</strong> الجائزة تُحتسب لتحرير مدينة واحدة حتى لو تمكن المتسابق من تحرير أكثر من مدينة.
+      </div>
+
+      <hr class="sep" />
+
+      <h3 style="margin:0;color:var(--text);font-weight:980">🏅 مكافآت بقية المشاركين</h3>
+      <p style="margin:6px 0 0">
+        بقية المشاركين سيحصلون على <strong>ميدالية ذهبية وفضية وبرونزية وكأس ونجمة وشارة</strong>
+        عن كل <strong>مسابقة هجومية محسوبة</strong> لهم (أي نتيجتها <strong>90% على الأقل</strong>).
+      </p>
+
+      <div class="chips">
+        <span class="chip">🥇 ميدالية ذهبية</span>
+        <span class="chip">🥈 ميدالية فضية</span>
+        <span class="chip">🥉 ميدالية برونزية</span>
+        <span class="chip">🏆 كأس</span>
+        <span class="chip">⭐ نجمة</span>
+        <span class="chip">🎖️ شارة</span>
+      </div>
+    </div>
+  </details>
+
+  <details id="tab-cities">
+    <summary>
+      <div class="sumLeft">🇵🇸 مدن التحدي الرمضاني</div>
+      <div class="chev">⌄</div>
+    </summary>
+
+    <div class="content">
+      <p style="margin-top:0">
+        المدن العشر المطروحة ضمن التحدي:
+      </p>
+
+      <div class="cities">
+        <div class="city">1️⃣ القدس <span>Al-Quds</span></div>
+        <div class="city">2️⃣ غزة <span>Gaza</span></div>
+        <div class="city">3️⃣ رام الله <span>Ramallah</span></div>
+        <div class="city">4️⃣ نابلس <span>Nablus</span></div>
+        <div class="city">5️⃣ رفح <span>Rafah</span></div>
+        <div class="city">6️⃣ خان يونس <span>Khan Yunis</span></div>
+        <div class="city">7️⃣ جنين <span>Jenin</span></div>
+        <div class="city">8️⃣ قلنسوة <span>Qalansawe</span></div>
+        <div class="city">9️⃣ الناصرة <span>Nazareth</span></div>
+        <div class="city">🔟 تل أبيب <span>Tel Aviv</span></div>
+      </div>
+
+      <div class="alert gold">
+        ✨ <strong>كل مدينة = فائز واحد</strong> (وبذلك يكون العدد الأقصى للفائزين 10).
+      </div>
+    </div>
+  </details>
+
+  <details id="tab-rules">
+    <summary>
+      <div class="sumLeft">📖 شروط تحرير المدينة</div>
+      <div class="chev">⌄</div>
+    </summary>
+
+    <div class="content">
+      <p style="margin-top:0">
+        لتحرير مدينة واحدة، يجب على المتسابق:
+      </p>
+      <ul style="margin:0; padding:0 18px 0 0">
+        <li>الفوز في <strong>120 مسابقة</strong>.</li>
+        <li>الحصول على <strong>نتيجة لا تقل عن 90%</strong> في كل مسابقة.</li>
+        <li>جميع المسابقات ضمن الأقسام التالية:
+          <strong>القرآن الكريم</strong>،
+          <strong>علوم القرآن</strong>،
+          <strong>الحديث الشريف</strong>،
+          وكل ما يتعلق برمضان.
+        </li>
+      </ul>
+
+      <div class="alert green">
+        ✅ <strong>مهم:</strong> إذا كانت نتيجة المسابقة أقل من 90% لا تُحتسب، 
+		  ويمكنك إعادة المحاولة حتى <span lang="en-us">ترفع النتيجة.</span>
+      </div>
+
+      <div class="alert red">
+        🎯 <strong>تنبيه:</strong> ركّز على تحرير <strong>مدينة واحدة فقط</strong>. الجائزة تُحتسب لمدينة واحدة حتى لو حررت أكثر.
+      </div>
+    </div>
+  </details>
+
+  <details id="tab-join">
+    <summary>
+      <div class="sumLeft">⚔️ طريقة المشاركة في المسابقة</div>
+      <div class="chev">⌄</div>
+    </summary>
+
+    <div class="content">
+      <div class="steps">
+
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <h3>اختيار العاصمة</h3>
+            <p>
+              يجب على المتسابق أن يختار مدينة تكون <strong>عاصمته</strong> ينطلق منها لتحرير مدن فلسطين،
+              ويكون ذلك بكتابة <strong>+مدينتي</strong> يليها اسم المدينة. ويمكن أن تكون أي مدينة في العالم.
+            </p>
+            <div class="cmdRow">
+              <div class="cmd">
+                <code id="cmd1">+مدينة قندهار</code>
+                
+              </div>
+              <div class="cmd">
+                <code id="cmd2">+مدينة نواكشوط</code>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <h3>بدء الهجوم</h3>
+            <p>
+              يدخل المتسابق خاص مع <strong>بوت مدير المسابقة</strong> ويكتب <strong>+هجوم</strong>.
+              ستظهر له لوحة فيها أزرار بأسماء مدن فلسطين العشر، يختار المتسابق المدينة التي يريد تحريرها.
+            </p>
+            <div class="cmdRow">
+              <div class="cmd">
+                <code id="cmd3">+هجوم</code>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <h3>مسابقات اليوم الأول</h3>
+            <p>
+              بعد اختيار المدينة ستظهر 4 مسابقات خاصة باليوم الأول من رمضان:
+              <strong>رمضان قرآن 1</strong>،
+              <strong>رمضان علوم القران 1</strong>،
+              <strong>رمضان حديث 1</strong>،
+              <strong>رمضان شعر 1</strong>.
+              سيختار المتسابق جميع هذه المسابقات بالتوالي.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <h3>شرط الفوز في المسابقة</h3>
+            <p>
+              للفوز بالمسابقة على المتسابق أن ينهي المسابقة بدرجة <strong>90% فما فوق</strong>.
+              وفي حال كانت النتيجة أقل من 90% يمكنه تشغيل المسابقة مجددًا والمحاولة مرة أخرى.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div>
+            <h3>تجدد المسابقات يوميًا</h3>
+            <p>
+              كلما أنهى المتسابق مسابقة، ستظهر بديلًا عنها مسابقة جديدة لليوم التالي من رمضان.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">6</div>
+          <div>
+            <h3>تحرير المدينة</h3>
+            <p>
+              وهكذا يستمر المتسابق بالفوز بالمسابقات حتى ينهي <strong>120 مسابقة</strong>،
+              وبهذا يكون قد نجح في <strong>تحرير المدينة</strong>.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">7</div>
+          <div>
+            <h3>التركيز على مدينة واحدة</h3>
+            <p>
+              هناك عشر مدن، لكن على المتسابق أن يركز على <strong>تحرير مدينة واحدة فقط</strong>.
+              لن يحصل على جائزة إلا لتحرير مدينة واحدة حتى لو تمكن من تحرير أكثر من مدينة.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </details>
+
+  <details id="tab-faq">
+    <summary>
+      <div class="sumLeft">❓ الأسئلة الشائعة (FAQ)</div>
+      <div class="chev">⌄</div>
+    </summary>
+
+    <div class="content">
+      <div class="faq">
+
+        <details>
+          <summary>
+            <div class="sumLeft">هل يمكنني إعادة المسابقة إذا جبت أقل من 90%؟</div>
+            <div class="chev">⌄</div>
+          </summary>
+          <div class="content">
+            نعم. إذا كانت نتيجتك أقل من 90% فلن تُحتسب كمسابقة هجومية، ويمكنك إعادة تشغيلها والمحاولة مرة أخرى حتى تحقق 90% فأعلى.
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div class="sumLeft">هل تُحتسب كل المحاولات ضمن 120؟</div>
+            <div class="chev">⌄</div>
+          </summary>
+          <div class="content">
+            لا. الذي يُحتسب ضمن 120 هو فقط المسابقات “المحسوبة” (أي التي نتيجتها 90% فأعلى).
+          </div>
+        </details>
+
+        <details>
+          <summary>
+            <div class="sumLeft">هل أقدر أحرر أكثر من مدينة؟ وهل آخذ أكثر من جائزة؟</div>
+            <div class="chev">⌄</div>
+          </summary>
+          <div class="content">
+            يمكن أن تكمل تحديات أكثر، لكن الجائزة المالية/البوتكوين تُمنح لتحرير <strong>مدينة واحدة فقط</strong> حتى لو تمكنت من تحرير أكثر من مدينة.
+          </div>
+        </details>
+
+        
+        <details>
+          <summary>
+            <div class="sumLeft">هل لازم أختار مدينة (عاصمة) قبل الهجوم؟</div>
+            <div class="chev">⌄</div>
+          </summary>
+          <div class="content">
+            نعم. أول خطوة هي تحديد العاصمة بالأمر <strong>+مدينتي</strong> ثم بعد ذلك تبدأ الهجوم بالأمر <strong>+هجوم</strong>.
+          </div>
+        </details>
+<details>
+  <summary>
+    <div class="sumLeft">عند كتابة +هجوم واختيار المدينة تظهر فقط 4 مسابقات، أين بقية الـ 120 مسابقة؟</div>
+    <div class="chev">⌄</div>
+  </summary>
+  <div class="content">
+    ستظهر في البداية <strong>4 مسابقات فقط</strong>.
+    وكلما فزت بمسابقة بنتيجة <strong>90% فأكثر</strong> ستختفي تلك المسابقة،
+    ويظهر بدلًا عنها <strong>مسابقة جديدة بديلة</strong>.
+    <br><br>
+    وهكذا يستمر التحدي تدريجيًا حتى تُكمل <strong>120 مسابقة محسوبة</strong>.
+  </div>
+</details>
+
+
+<details>
+  <summary>
+    <div class="sumLeft">هل يستطيع أكثر من لاعب أن يفوز بنفس المدينة؟</div>
+    <div class="chev">⌄</div>
+  </summary>
+  <div class="content">
+    لا، <strong>فقط لاعب واحد</strong> يفوز بالمدينة.
+    وهو المتسابق الذي استطاع إنهاء <strong>120 مسابقة محسوبة</strong>
+    بنتيجة <strong>90% فأكثر</strong> قبل الجميع.
+    <br><br>
+    بمجرد تحرير المدينة من قبل أول لاعب،
+    تُغلق المنافسة عليها ولا يمكن لغيره الفوز بها.
+  </div>
+</details>
+<details>
+  <summary>
+    <div class="sumLeft">ماذا لو أنهيت 119 مسابقة وبقيت مسابقة واحدة، ثم جاء متسابق آخر وأخذ المدينة قبلي؟</div>
+    <div class="chev">⌄</div>
+  </summary>
+  <div class="content">
+    في هذه الحالة ستضيع منك المدينة،
+    لأن الفائز هو <strong>الأسرع</strong> في إنهاء
+    <strong>120 مسابقة محسوبة بنتيجة 90% فأكثر</strong>.
+    <br><br>
+    بمجرد أن يُكمل أحد المتسابقين العدد المطلوب أولًا،
+    تُغلق المدينة رسميًا.
+    <br><br>
+    ويمكنك حينها التوجه لمحاولة <strong>تحرير مدينة أخرى</strong>
+    من المدن المتبقية.
+  </div>
+</details>
+<details>
+  <summary>
+    <div class="sumLeft">كتبت +مدينتي ومع ذلك لم يقبل البوت تحديد المدينة لي؟</div>
+    <div class="chev">⌄</div>
+  </summary>
+  <div class="content">
+    تأكد من أنك تكتب <strong>اسم المدينة بشكل سليم</strong> وبدون أخطاء إملائية.
+    <br><br>
+    تأكد أيضًا أنها <strong>اسم مدينة فعلًا</strong> وليست اسم محافظة أو ولاية.
+    <br><br>
+    وإذا كان قد سبقك متسابق آخر في اختيار هذه المدينة كعاصمة له،
+    فعليك اختيار <strong>مدينة بديلة</strong>.
+  </div>
+</details>
+<details>
+  <summary>
+    <div class="sumLeft">بعض الأسئلة فيها أخطاء وبسببها لم أتمكن من الإجابة السليمة على السؤال؟</div>
+    <div class="chev">⌄</div>
+  </summary>
+  <div class="content">
+    قد يصادفك مثل هذا الأمر أحيانًا.
+    <br><br>
+    لذلك لم نجعل نسبة الفوز <strong>100%</strong>، ويكفي أن تحصل على
+    <strong>90% فما فوق</strong>.
+    <br><br>
+    وكذلك يمكنك <strong>إعادة المسابقة</strong> للحصول على نتيجة فوز،
+    في حال كانت نتيجتك أقل من <strong>90%</strong>.
+  </div>
+</details>
+
+<details>
+  <summary>
+    <div class="sumLeft">هل أستطيع إنهاء جميع المسابقات في بداية رمضان أم أحتاج أن أنتظر؟</div>
+    <div class="chev">⌄</div>
+  </summary>
+  <div class="content">
+    لا تحتاج للانتظار.
+    <br><br>
+    ستبدأ من مسابقات اليوم الأول، وإذا استطعت إنهاءها في نفس اليوم
+    ستظهر لك مسابقات اليوم التالي، وهكذا بشكل متتابع.
+    <br><br>
+    لذلك يمكنك إنهاء جميع <strong>120 مسابقة</strong>
+    قبل نهاية رمضان إذا تمكنت من ذلك.
+  </div>
+</details>
+<details>
+  <summary>
+    <div class="sumLeft">هل يمكنني معرفة من المتسابقين الآخرين الذين يحاولون تحرير المدينة؟</div>
+    <div class="chev">⌄</div>
+  </summary>
+  <div class="content">
+    نعم.
+    <br><br>
+    عند قيام أي متسابق بمهاجمة أي مدينة يتم إرسال إشعار إلى
+    <strong>قناة الموسوعة الثقافية</strong>،
+    ويتضمن اسم المتسابق واسم المدينة التي يهاجمها.
+    <br><br>
+    كما تُنشر نتيجة الهجوم بعد انتهاء المسابقة،
+    وهل استطاع المتسابق الفوز بها أم لا.
+    <br><br>
+    لذلك إذا تابعت الإشعارات أولًا بأول
+    يمكنك معرفة بقية المشاركين في المنافسة
+    وإلى أي مرحلة وصلوا.
+  </div>
+</details>
+<details>
+  <summary>
+    <div class="sumLeft">هل المسابقة فيها ظلم والفائزين محددين مسبقاً؟</div>
+    <div class="chev">⌄</div>
+  </summary>
+  <div class="content">
+    لا.
+    <br><br>
+    جميع الشروط السابقة <strong>تنطبق على الجميع دون استثناء</strong>،
+    ولا يوجد أي تمييز لأحد على أحد، والكل سواسية.
+    <br><br>
+    لا يوجد أي تلاعب في النتائج،
+    ولا أي تسهيلات خاصة لأي متسابق.
+    <br><br>
+    المسابقة <strong>عادلة ومنصفة</strong> للجميع.
+    <br><br>
+    ومع ذلك، إذا كنت غير مطمئن،
+    فالأفضل أن لا تشارك في المنافسة،
+    ولا يوجد ما يلزمك بالمشاركة.
+  </div>
+</details>
+
+      </div>
+
+      
+    </div>
+  </details>
+
+</div>
+
+
+<div id="fab" class="fab" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</div>
+
+<script>
+
+
+/* ===== Accordion behavior for main tabs ===== */
+const mainTabs = [
+  'tab-awards','tab-cities','tab-rules','tab-join','tab-faq'
+].map(id => document.getElementById(id)).filter(Boolean);
+
+mainTabs.forEach(d => {
+  d.addEventListener('toggle', () => {
+    if(!d.open) return;
+    mainTabs.forEach(o => { if(o !== d) o.open = false; });
+  });
+});
+
+/* Optional: keep FAQ items as accordion inside FAQ too */
+function accordionInside(containerSelector){
+  const container = document.querySelector(containerSelector);
+  if(!container) return;
+  const items = Array.from(container.querySelectorAll(':scope > details'));
+  items.forEach(it => {
+    it.addEventListener('toggle', ()=>{
+      if(!it.open) return;
+      items.forEach(o => { if(o !== it) o.open = false; });
+    });
+  });
+}
+accordionInside('#tab-faq .faq');
+
+
+</script>
+</body>
+</html>
