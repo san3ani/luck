@@ -1,0 +1,2021 @@
+﻿<!doctype html>
+<html dir="rtl" lang="ar" >
+
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<title>شرح لعبة الضامنة — نسخة التطبيق</title>
+
+	<style>
+		:root {
+            /* Luxury palette */
+            --bg-deep: #1A0E08;
+            --bg-mid: #160B06;
+            --bg-pale: #0A0805;
+
+            --leather-light: #2A1810;
+            --leather: #1F1009;
+            --leather-dark: #160B06;
+            --leather-deep: #1A0E08;
+
+            --gold-pale: #FFE89A;
+            --gold-light: #F5D67E;
+            --gold: #D4AF37;
+            --gold-dark: #B8941F;
+            --gold-deep: #8B6914;
+            --gold-shadow: #5A4012;
+            --gold-muted: #A88A4B;
+
+            --ivory: #F0E4C2;
+            --ivory-dark: #D9C99B;
+            --emerald-light: #0E3A2C;
+            --emerald: #06261D;
+
+            --text: #FAF3E0;
+            --muted: #A88A4B;
+
+            /* Pip colors */
+            --pip-1: #3D2817;
+            --pip-2: #1565C0;
+            --pip-3: #A30808;
+            --pip-4: #6A1B9A;
+            --pip-5: #3D2817;
+            --pip-6: #1B5E20;
+
+            /* Status colors (re-themed) */
+            --brand: var(--gold);
+            --accent: var(--gold-pale);
+            --ok: #1D9E75;
+            --warn: var(--gold);
+            --danger: #C77878;
+
+            --shadow: 0 4px 14px rgba(0,0,0,.5), 0 8px 30px rgba(0,0,0,.35);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 50%, var(--bg-deep) 100%);
+            color: var(--text);
+            font: 16px/1.85 Georgia, 'Amiri', 'Noto Naskh Arabic UI', 'Segoe UI', system-ui, serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 980px;
+            margin-inline: auto;
+            padding: 24px 16px 60px;
+        }
+
+        /* ===== Header ===== */
+        header {
+            background: linear-gradient(180deg, var(--leather-light), var(--leather));
+            border: 1.5px solid var(--gold);
+            padding: 26px 22px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            text-align: center;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 4px; bottom: 4px; left: 4px; right: 4px;
+            border: 0.5px solid var(--gold-shadow);
+            border-radius: 13px;
+            pointer-events: none;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            color: var(--gold);
+            font-size: clamp(22px, 3.5vw, 32px);
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-family: Georgia, serif;
+        }
+
+        .subtitle {
+            color: var(--gold-muted);
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        /* ===== Cards (accordion sections) ===== */
+        .card {
+            background: linear-gradient(180deg, var(--leather-light), var(--leather));
+            border: 1.5px solid var(--gold);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-top: 18px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 4px; bottom: 4px; left: 4px; right: 4px;
+            border: 0.5px solid var(--gold-shadow);
+            border-radius: 13px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card h2 {
+            cursor: pointer;
+            background: var(--leather-deep);
+            color: var(--gold-pale);
+            padding: 16px 22px;
+            margin: 0;
+            border-bottom: 1px solid var(--gold-shadow);
+            transition: background 0.25s;
+            font-size: clamp(16px, 3vw, 20px);
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h2::before {
+            content: '◆';
+            color: var(--gold);
+            font-size: 11px;
+            margin-left: 10px;
+            transition: transform 0.3s;
+        }
+
+        .card.active h2::before {
+            transform: rotate(180deg);
+        }
+
+        .card h2:hover {
+            background: linear-gradient(180deg, var(--gold-shadow), var(--leather-deep));
+        }
+
+        .card .content {
+            display: none;
+            padding: 18px 22px 22px;
+        }
+
+        .card.active .content {
+            display: block;
+        }
+
+        h3 {
+            color: var(--gold);
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            margin: 0 0 12px;
+            color: var(--text);
+        }
+
+        strong {
+            color: var(--gold-pale);
+        }
+
+        u {
+            text-decoration-color: var(--gold);
+            text-underline-offset: 3px;
+        }
+
+        em {
+            color: var(--gold-pale);
+            font-style: normal;
+        }
+
+        hr {
+            border: 0;
+            height: 0.5px;
+            background: var(--gold-shadow);
+            margin: 16px 0 0;
+        }
+
+        ul, ol {
+            margin: 8px 0 14px;
+            padding: 0 22px;
+        }
+
+        li {
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        li::marker {
+            color: var(--gold);
+        }
+
+        /* ===== Example boxes ===== */
+        .example {
+            border-inline-start: 4px solid var(--gold);
+            padding: 12px 14px;
+            background: rgba(212, 175, 55, 0.06);
+            border-radius: 12px;
+            margin-top: 14px;
+            border: 0.5px solid var(--gold-shadow);
+            border-inline-start: 4px solid var(--gold);
+        }
+
+        .example ul {
+            margin: 6px 0 10px 0;
+        }
+
+        .example strong {
+            color: var(--gold);
+        }
+
+        /* ===== Notes ===== */
+        .note {
+            border-inline-start: 4px solid var(--gold-pale);
+            padding: 12px 14px;
+            background: rgba(255, 232, 154, 0.08);
+            border-radius: 12px;
+            margin: 12px 0;
+        }
+
+        /* ===== Figures ===== */
+        figure {
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        figcaption {
+            margin-top: 8px;
+            color: var(--gold-muted);
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        svg text {
+            font-family: inherit;
+        }
+
+        /* ===== Hands & tiles ===== */
+        .hands {
+            display: grid;
+            gap: 14px;
+        }
+
+        .hand-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: var(--leather-deep);
+            border: 0.5px solid var(--gold-shadow);
+            border-radius: 12px;
+            padding: 10px 12px;
+        }
+
+        .hand-row .who {
+            min-width: 84px;
+            font-weight: 700;
+            color: var(--gold-pale);
+            background: linear-gradient(180deg, var(--leather), var(--leather-dark));
+            border: 1px solid var(--gold);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-family: Georgia, serif;
+            letter-spacing: 1px;
+        }
+
+        .hand-tiles {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tile-c {
+            width: 30px;
+            height: 60px;
+        }
+
+        /* Luxury ivory tile face */
+        .tile-white {
+            border-radius: 6px !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            background: var(--ivory);
+            border: 1px solid var(--gold-deep);
+        }
+
+        .tile-white rect {
+            fill: var(--ivory) !important;
+            stroke: var(--gold-deep) !important;
+        }
+
+        .tile-white line {
+            stroke: var(--gold-deep);
+            stroke-opacity: 0.6;
+        }
+
+        .tile-white .pip {
+            fill: var(--pip-1);
+        }
+
+        /* ===== Domino grid ===== */
+        .domino-grid {
+            display: grid;
+            grid-template-columns: repeat(7, auto);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 14px;
+            padding: 12px;
+            background: var(--leather-deep);
+            border: 0.5px solid var(--gold-shadow);
+            border-radius: 12px;
+        }
+
+        .row-title {
+            margin: 14px 0 8px;
+            color: var(--gold-muted);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== Score case boxes ===== */
+        .score-case {
+            margin-top: 22px;
+            border-inline-start: 4px solid var(--ok);
+            background: rgba(29, 158, 117, 0.08);
+            border: 0.5px solid var(--gold-shadow);
+            border-inline-start: 4px solid var(--ok);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .score-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 8px;
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        .sum-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .sum-badge {
+            background: var(--leather-deep);
+            border: 1px solid var(--gold-shadow);
+            border-radius: 999px;
+            padding: 5px 12px;
+            font-size: 13px;
+            color: var(--gold-pale);
+            font-family: Georgia, serif;
+        }
+
+        .team-badge {
+            background: var(--leather-deep);
+            border: 1px solid var(--gold-shadow);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-top: 10px;
+            color: var(--text);
+        }
+
+        .team-badge strong {
+            color: var(--gold);
+        }
+
+        .pile {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tile-mini {
+            width: 30px;
+            height: 60px;
+        }
+
+        .equals {
+            font-weight: 700;
+            margin-inline: 6px;
+            color: var(--gold);
+            font-size: 18px;
+        }
+
+        .note-variant {
+            margin-top: 10px;
+            color: var(--gold-muted);
+            font-size: 13px;
+            padding: 8px 12px;
+            border-inline-start: 2px solid var(--gold-shadow);
+            background: rgba(212, 175, 55, 0.04);
+            border-radius: 6px;
+        }
+
+        .note-variant strong {
+            color: var(--gold);
+        }
+
+        /* ===== Special cases (no-score, ok-score) ===== */
+        .no-score-case {
+            margin-top: 22px;
+            border-inline-start: 4px solid var(--danger);
+            background: rgba(199, 120, 120, 0.06);
+            border: 0.5px solid var(--gold-shadow);
+            border-inline-start: 4px solid var(--danger);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .ok-score-case {
+            margin-top: 22px;
+            border-inline-start: 4px solid var(--ok);
+            background: rgba(29, 158, 117, 0.06);
+            border: 0.5px solid var(--gold-shadow);
+            border-inline-start: 4px solid var(--ok);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .case-title {
+            font-weight: 700;
+            margin: 0 0 8px;
+            color: var(--gold-pale);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .ledger {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            flex-direction: column;
+        }
+
+        .pill {
+            border: 1px solid var(--gold-shadow);
+            border-radius: 10px;
+            padding: 8px 12px;
+            background: var(--leather-deep);
+            color: var(--text);
+        }
+
+        .pill strong {
+            color: var(--gold);
+        }
+
+        /* ===== Bonus cases ===== */
+        .bonus-case {
+            margin-top: 22px;
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(255, 232, 154, 0.05));
+            position: relative;
+        }
+
+        .bonus-case::before {
+            content: '';
+            position: absolute;
+            top: 3px; bottom: 3px; left: 3px; right: 3px;
+            border: 0.5px solid var(--gold-shadow);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .bonus-kill {
+            margin-top: 16px;
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(199, 120, 120, 0.06), rgba(255, 232, 154, 0.05));
+            position: relative;
+        }
+
+        .bonus-kill::before {
+            content: '';
+            position: absolute;
+            top: 3px; bottom: 3px; left: 3px; right: 3px;
+            border: 0.5px solid var(--gold-shadow);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .mini-board {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .explain {
+            color: var(--gold-muted);
+            font-size: 13px;
+            margin-top: 8px;
+            line-height: 1.7;
+        }
+
+        .badge {
+            border: 1px solid var(--gold);
+            border-radius: 999px;
+            padding: 5px 12px;
+            background: var(--leather);
+            color: var(--gold-pale);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .flag {
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* ===== Pass / no-move pills ===== */
+        .pass {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border: 1px dashed var(--gold-shadow);
+            border-radius: 999px;
+            font-size: 12px;
+            color: var(--gold-muted);
+        }
+
+        .pass-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold-muted);
+        }
+
+        .no-move {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border: 1px dashed var(--gold-shadow);
+            border-radius: 999px;
+            font-size: 12px;
+            color: var(--gold-muted);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold-muted);
+        }
+
+        /* ===== Redo boxes ===== */
+        .redo-box {
+            margin-top: 22px;
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(29, 158, 117, 0.04));
+            position: relative;
+        }
+
+        .redo-box::before {
+            content: '';
+            position: absolute;
+            top: 3px; bottom: 3px; left: 3px; right: 3px;
+            border: 0.5px solid var(--gold-shadow);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .redo-case {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 12px;
+            border: 0.5px solid var(--gold-shadow);
+            background: var(--leather-deep);
+            position: relative;
+            z-index: 1;
+        }
+
+        .redo-case strong {
+            color: var(--gold);
+        }
+
+        .mini-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        /* ===== Mini SVG tiles (for player avatars in the player layout figure) ===== */
+        svg rect[fill="#ffffff"] {
+            fill: var(--ivory) !important;
+        }
+
+        svg rect[stroke="#cbd5e1"],
+        svg rect[stroke="#334155"] {
+            stroke: var(--gold-shadow) !important;
+        }
+
+        svg circle[fill="var(--brand)"] {
+            fill: var(--gold) !important;
+        }
+
+        svg text[fill="#fff"] {
+            fill: var(--leather) !important;
+        }
+
+        /* The player layout figure background */
+        svg circle[fill="var(--panel)"] {
+            fill: var(--emerald) !important;
+            stroke: var(--gold) !important;
+        }
+
+        /* Player number badges in the player layout figure */
+        svg rect[fill="#38bdf8"],
+        svg rect[fill="#34d399"] {
+            fill: var(--gold) !important;
+        }
+
+        /* ===== Mobile-friendly tweaks ===== */
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px 12px 50px;
+            }
+            .card h2 {
+                padding: 14px 16px;
+                font-size: 15px;
+            }
+            .card .content {
+                padding: 14px 16px 18px;
+            }
+            .domino-grid {
+                grid-template-columns: repeat(4, auto);
+                gap: 8px;
+                padding: 10px;
+            }
+            .tile-c {
+                width: 28px;
+                height: 56px;
+            }
+        }
+	</style>
+	<svg height="0" style="position: absolute; left: -9999px; top: -9999px" width="0">
+		<defs>
+			<g id="half-0"></g>
+			<g id="half-1"><circle class="pip" cx="25" cy="25" r="4"/></g>
+			<g id="half-2"><circle class="pip" cx="12.5" cy="12.5" r="4"/><circle class="pip" cx="37.5" cy="37.5" r="4"/></g>
+			<g id="half-3"><circle class="pip" cx="12.5" cy="12.5" r="4"/><circle class="pip" cx="25" cy="25" r="4"/><circle class="pip" cx="37.5" cy="37.5" r="4"/></g>
+			<g id="half-4"><circle class="pip" cx="12.5" cy="12.5" r="4"/><circle class="pip" cx="37.5" cy="12.5" r="4"/><circle class="pip" cx="12.5" cy="37.5" r="4"/><circle class="pip" cx="37.5" cy="37.5" r="4"/></g>
+			<g id="half-5"><circle class="pip" cx="12.5" cy="12.5" r="4"/><circle class="pip" cx="37.5" cy="12.5" r="4"/><circle class="pip" cx="25" cy="25" r="4"/><circle class="pip" cx="12.5" cy="37.5" r="4"/><circle class="pip" cx="37.5" cy="37.5" r="4"/></g>
+			<g id="half-6"><circle class="pip" cx="12.5" cy="12.5" r="4"/><circle class="pip" cx="37.5" cy="12.5" r="4"/><circle class="pip" cx="12.5" cy="25" r="4"/><circle class="pip" cx="37.5" cy="25" r="4"/><circle class="pip" cx="12.5" cy="37.5" r="4"/><circle class="pip" cx="37.5" cy="37.5" r="4"/></g>
+		</defs>
+	</svg>
+</head>
+
+<body>
+
+<div class="container">
+	<header>
+		<h1>قواعد لعبة الضامنة — حسب برمجة التطبيق</h1>
+		<p class="subtitle">شرح مبسَّط ومتدرِّج مع أمثلة وصور للأحجار </p>
+	</header>
+	<section class="card is-blue" id ="s1">
+		<h2>ما هي لعبة الضامنة؟</h2>
+		<div class="content">
+			<p>لعبة <strong>الضامنة</strong> تتكون من <strong>٢٨ حجرًا</strong>. كل حجر دومينو مقسَّم إلى <strong>نصفين</strong>، وفي كل نصف عدد من النقاط (وقد يكون بدون نقاط). </p>
+			<div class="example">
+				<ul style="margin: 6px 0 10px 0">
+					<li>
+						<strong>0</strong> نقطة ويسمى <strong>بياض</strong> ويوجد منه 7 حجار
+						<figcaption class="row-title">حجار البياض</figcaption>
+						<div class="domino-grid">
+							<svg aria-label="0|0" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-0" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|1" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-0" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|2" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-0" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|3" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-0" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|4" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-0" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|5" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-0" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|6" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-0" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-6" x="5" y="65"/>
+							</svg>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="example">
+				<ul style="margin: 6px 0 10px 0">
+					<li><strong>1</strong> نقطة ويسمى <strong>يك</strong> ويوجد منه 7 حجار
+						<figcaption class="row-title">حجار اليك</figcaption>
+						<div class="domino-grid">
+							<svg aria-label="1|0" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-1" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="1|1" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-1" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="1|2" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-1" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="1|3" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-1" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="1|4" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-1" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="1|5" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-1" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="1|6" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-1" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-6" x="5" y="65"/>
+							</svg> </div>
+					</li>
+				</ul>
+			</div>
+			<div class="example">
+				<ul style="margin: 6px 0 10px 0">
+					<li><strong>2</strong> نقطتان ويسمى <strong>دو</strong> ويوجد منه
+						7 حجار
+						<figcaption class="row-title">حجار الدو</figcaption>
+						<div class="domino-grid">
+							<svg aria-label="2|0" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-2" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|1" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-2" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|2" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-2" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|3" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-2" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|4" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-2" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|5" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-2" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|6" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-2" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-6" x="5" y="65"/>
+							</svg> </div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="example">
+				<ul style="margin: 6px 0 10px 0">
+					<li><strong>3</strong> نقاط ويسمى <strong>سليم</strong> ويوجد منه
+						7 حجار
+						<figcaption class="row-title">حجار السليم</figcaption>
+						<div class="domino-grid">
+							<svg aria-label="3|0" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-3" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|1" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-3" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|2" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-3" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|3" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-3" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|4" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-3" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|5" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-3" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|6" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-3" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-6" x="5" y="65"/>
+							</svg> </div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="example">
+				<ul style="margin: 6px 0 10px 0">
+					<li><strong>4</strong> نقاط ويسمى <strong>جهار</strong> ويوجد منه
+						7 حجار
+						<figcaption class="row-title">حجار الجهار</figcaption>
+						<div class="domino-grid">
+							<svg aria-label="4|0" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-4" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|1" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-4" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|2" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-4" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|3" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-4" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|4" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-4" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|5" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-4" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|6" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-4" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-6" x="5" y="65"/>
+							</svg> </div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="example">
+				<ul style="margin: 6px 0 10px 0">
+					<li><strong>5</strong> نقاط ويسمى <strong>البيش</strong> ويوجد منه
+						7 حجار
+						<figcaption class="row-title">حجار البيش</figcaption>
+						<div class="domino-grid">
+							<svg aria-label="5|0" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-5" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|1" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-5" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|2" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-5" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|3" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-5" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|4" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-5" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|5" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-5" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|6" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-5" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-6" x="5" y="65"/>
+							</svg> </div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="example">
+				<ul style="margin: 6px 0 10px 0">
+					<li><strong>6</strong> نقاط ويسمى <strong>الشيش</strong> ويوجد منه
+						7 حجار
+						<figcaption class="row-title">حجار الشيش</figcaption>
+						<div class="domino-grid">
+							<svg aria-label="6|0" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-6" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="6|1" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-6" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="6|2" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-6" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="6|3" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-6" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="6|4" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-6" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="6|5" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-6" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="6|6" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+								<use href="#half-6" x="5" y="5"/>
+								<line x1="0" y1="60" x2="60" y2="60"/>
+								<use href="#half-6" x="5" y="65"/>
+							</svg> </div>
+					</li>
+				</ul>
+			</div>
+			<hr/>
+		</div>
+	</section>
+	<section class="card is-green" id="s2">
+		<h2>توزيع الأحجار</h2>
+		<div class="content">
+			<p>تُلعب عادةً بين <strong>أربعة لاعبين</strong> بحيث يشكل كل لاعبين متقابلين فريقًا.
+			</p>
+			<p>
+				الفريقان هما: <strong>فريق A</strong> (اللاعب 1 واللاعب 3) وفريق B (اللاعب 2 واللاعب 4). في بداية كل جولة يحصل كل لاعب على <strong>٧ أحجار</strong>. كل لاعب يستطيع أن يرى حجاره فقط بدون أن يرى حجار بقية اللاعبين.
+			</p>
+			<figure>
+				<svg aria-label="توزيع اللاعبين الأربعة"  viewBox="0 0 320 320" >
+					<defs>
+						<g id="mini-tile">
+							<rect x="0.5" y="0.5" width="17" height="33" rx="4" ry="4" fill="#ffffff" stroke="#cbd5e1"/>
+
+						</g>
+					</defs>
+					<circle cx="160" cy="160" r="160" fill="var(--panel)" stroke="#334155" stroke-width="2"/>
+					<rect x="135" y="0" width="50" height="30" rx="8" ry="8" fill="#38bdf8"/>
+					<text x="160" y="16" fill="#fff" text-anchor="middle" font-size="12">اللاعب1</text><g transform="translate(90,40)"><use href="#mini-tile"/><use href="#mini-tile" x="20"/><use href="#mini-tile" x="40"/><use href="#mini-tile" x="60"/><use href="#mini-tile" x="80"/><use href="#mini-tile" x="100"/><use href="#mini-tile" x="120"/></g><rect x="290" y="135" width="30" height="50" rx="8" ry="8" fill="#34d399"/><text x="285" y="155" fill="#fff" text-anchor="middle" font-size="12" transform="rotate(90 291 165)">اللاعب2</text><g transform="translate(200,100) rotate(90 40 40)"><use href="#mini-tile"/><use href="#mini-tile" x="20"/><use href="#mini-tile" x="40"/><use href="#mini-tile" x="60"/><use href="#mini-tile" x="80"/><use href="#mini-tile" x="100"/><use href="#mini-tile" x="120"/></g><rect x="135" y="290" width="50" height="30" rx="8" ry="8" fill="#38bdf8"/><text x="160" y="310" fill="#fff" text-anchor="middle" font-size="12">اللاعب3</text><g transform="translate(90,250)"><use href="#mini-tile"/><use href="#mini-tile" x="20"/><use href="#mini-tile" x="40"/><use href="#mini-tile" x="60"/><use href="#mini-tile" x="80"/><use href="#mini-tile" x="100"/><use href="#mini-tile" x="120"/></g><rect x="0" y="135" width="30" height="50" rx="8" ry="8" fill="#34d399"/><text x="35" y="155" fill="#fff" text-anchor="middle" font-size="12" transform="rotate(-90 29 165)">اللاعب4</text><g transform="translate(0,100) rotate(90 40 40)"><use href="#mini-tile"/><use href="#mini-tile" x="20"/><use href="#mini-tile" x="40"/><use href="#mini-tile" x="60"/><use href="#mini-tile" x="80"/><use href="#mini-tile" x="100"/><use href="#mini-tile" x="120"/></g><circle cx="160" cy="160" r="25" fill="var(--brand)" opacity="0.35"/><text x="160" y="165" text-anchor="middle" font-size="10" fill="#fff">لوحة اللعب</text></svg>
+				<figcaption style="margin-top: 8px; color: var(--muted); font-size: 13px;">
+					توزيع اللاعبين الأربعة ورزم الأحجار (٧ لكل لاعب)
+				</figcaption>
+			</figure>
+			<div class="example">
+				<strong>مثال توزيع الأحجار بين اللاعبين:</strong>
+				<div class="hands" style="margin-top: 10px">
+					<div class="hand-row">
+						<span class="who">اللاعب 1</span>
+						<div class="hand-tiles">
+							<svg aria-label="6|6" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-6" x="5" y="65"/>
+							</svg>
+							<svg aria-label="6|5" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|2" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|1" class="tile-white tile-c" viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-3" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-0" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|6" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-6" x="5" y="65"/>
+							</svg> </div>
+					</div>
+					<div class="hand-row">
+						<span class="who">اللاعب 2</span>
+						<div class="hand-tiles">
+							<svg aria-label="6|4" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|5" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|3" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-3" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|5" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-0" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="1|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-1" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+							</svg> </div>
+					</div>
+					<div class="hand-row">
+						<span class="who">اللاعب 3</span>
+						<div class="hand-tiles">
+							<svg aria-label="6|3" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-3" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="6|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="4|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-3" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+							</svg> </div>
+					</div>
+					<div class="hand-row">
+						<span class="who">اللاعب 4</span>
+						<div class="hand-tiles">
+							<svg aria-label="6|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="5|4" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="2|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+							</svg>
+							<svg aria-label="3|5" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-3" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+							</svg>
+							<svg aria-label="1|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-1" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|4" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-0" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-4" x="5" y="65"/>
+							</svg>
+							<svg aria-label="0|3" class="tile-white tile-c"  viewBox="0 0 60 120">
+								<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-0" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-3" x="5" y="65"/>
+							</svg> </div>
+					</div>
+				</div>
+			</div>
+			<hr/>
+		</div>
+	</section>
+	<section class="card is-amber" id="s3">
+		<h2>كيف يبدأ اللعب</h2>
+		<div class="content">
+			<h3>قوانين البداية في الجولة الأولى</h3>
+			بعد توزيع الأحجار بين اللاعبين لأول مرة في الجولة الأولى
+			يبدأ اللعب من عند اللاعب الذي يمتلك حجر معترض الشيش (6|6)
+			<div class="example">
+				<svg aria-label="6|6" class="tile-white tile-c"  viewBox="0 0 60 120">
+					<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+					<use href="#half-6" x="5" y="5"/>
+					<line x1="0" y1="60" x2="60" y2="60"/>
+					<use href="#half-6" x="5" y="65"/>
+				</svg>
+			</div>
+			فيقوم هذا اللاعب بوضعها مكشوفة في الميدان.
+			<br/>
+			ثم ينتقل الدور للاعب التالي وهو اللاعب الذي على يمين اللاعب السابق.
+			<br/>
+			فيجب أن يلعب حجر من الأحجار التي بيده بشرط أن يحتوي هذا الحجر على رقم مساوي لرقم أحد طرفي الحجر الموجود في الميدان
+			<br/>
+			وطبعاً لأن الحجر الذي في الميدان بداية هو حجر معترض الشيش 6|6
+			<br/>
+			فيجب على اللاعب أن يلعب حجر من حجار الشيش (أي حجر في جانبه 6)
+			<br/>
+			فإذا كان لديه حجر بهذا الشرط سيلعبه وينتقل الدور للاعب التالي
+			<br/>
+			وإذا لم يكن لديه حجر صالح للعب فعليه أن يقول جلا ولا يلعب شيء
+			<br/>
+			وينتقل الدور للاعب التالي
+			<div class="example">
+				<strong>مثال لعب على الميدان:</strong>
+				<figure style="margin-top:10px">
+					<svg viewBox="0 0 560 220" width="100%" aria-label="مثال لعب: 6|6 معترض ثم 6|4">
+						<!-- خلفية الميدان -->
+						<rect x="10" y="10" width="540" height="200" rx="14" ry="14"
+							  fill="var(--panel)" stroke="#334155" stroke-width="2" />
+
+						<g transform="translate(220,40) ">
+							<rect width="59" height="119" rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-6" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60" stroke="#94a3b8" stroke-width="1"/>
+							<use href="#half-6" x="5" y="65"/>
+						</g>
+
+						<!-- حجر شيش الجهار 6|4 ملاصق من جهة الشيش -->
+						<!-- الوضع عمودي، والـ 6 في النصف العلوي ليُلامس طرف المعترض -->
+						<g transform="translate(315,40) rotate(270 30 60)">
+							<rect width="59" height="119" rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-6" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60" stroke="#94a3b8" stroke-width="1"/>
+							<use href="#half-4" x="5" y="65"/>
+						</g>
+
+
+						<!-- تسميات توضيحية -->
+						<text x="250" y="170" fill="var(--muted)" font-size="13" text-anchor="middle">المعترض 6|6</text>
+						<text x="345" y="150" fill="var(--muted)" font-size="13" text-anchor="middle">شيش الجهار 4|6</text>
+
+					</svg>
+					<figcaption style="margin-top:8px;color:var(--muted);font-size:13px">
+						وضع <strong>6|6</strong> معترضًا في المنتصف، ثم لعب <strong>6|4</strong> ملاصقًا من جهة الشيش.
+					</figcaption>
+				</figure>
+				حسب هذا المثال
+				اللاعب الثالث سيكون لديه خيار لعب حجر من أحجار الجهار (4)
+				أو يلعب حجر من حجار الشيش (6)
+			</div>
+			يستمر اللعب على هذا المنوال إلى أن يحدث أحد أمرين
+			<br/>
+			الأمر الأول:- الوصول
+			<br/>
+			وفيه  لاعب يضع آخر حجره من يده إلى الميدان ولا يبقى معه حجاره فيكون هنا وصل وتنتهي الجوله بفوز فريق هذا اللاعب
+			<br/>
+			الأمر الثاني:- القفلة
+			<br/>
+			وفيه يبقى في يد كل لاعب أحجار ولكن لا يستطيع أحد اللعب لأنه لا يوجد حجر قابلة للعب. فتنتهي الجولة ويكون الفائز الفريق الذي بيده نقاط حجار أقل
+
+			<h3>قوانين البداية في الجولات التالية</h3>
+			نفس القوانين مع الاعتبارات التالية
+			<br/>
+			1- إذا انتهت الجولة السابقة بوصول، فاللاعب الذي وصل هو الذي يبدأ وله حرية اختيار حجر البداية فلا يشترط أن يلعب حجر 6|6
+			<br/>
+			2- إذا انتهت الجولة السابقة بقفلة فحينها تعتبر الجولة الجديدة وكأنها الجولة الأولى فاللاعب الذي عنده حجر 6|6 هو الذي يبدأ اللعب وبهذا الحجر إلزاماً
+			<br/>
+			3- هنالك حالات تسبب في ضرورة إعادة توزيع الحجار على اللاعبين فإذا حدثت مثل هذه الحالات فحينها اللاعب صاحب الحجر 6|6 هو الذي يبدأ وبهذا الحجر إلزاماً
+			<br/>
+
+			<hr/>
+		</div>
+	</section>
+	<section class="card is-cyan" id="s4">
+		<h2 id="redistribution">حالات إعادة التوزيع</h2>
+		<div class="content">
+			<p>يُعاد توزيع الأحجار (إعادة خلط/توزيع) في الحالات التالية:</p>
+
+			<div class="redo-box">
+				<!-- الحالة 1: 5 معترضات أو أكثر -->
+				<div class="redo-case">
+					<p><strong>1) إذا كان لدى أي لاعب 5 معترضات (دبل) أو أكثر.</strong></p>
+					<div class="mini-row">
+						<span class="pill">مثال يد لاعب: 5 معترضات</span>
+					</div>
+					<div>
+						<svg aria-label="1|0" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-1" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-0" x="5" y="65"/>
+						</svg>
+						<svg aria-label="1|1" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-1" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-1" x="5" y="65"/>
+						</svg>
+						<svg aria-label="2|3" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-2" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-3" x="5" y="65"/>
+						</svg>
+						<svg aria-label="3|3" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-3" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-3" x="5" y="65"/>
+						</svg>
+						<svg aria-label="6|6" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-6" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-6" x="5" y="65"/>
+						</svg>
+						<svg aria-label="4|4" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-4" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-4" x="5" y="65"/>
+						</svg>
+						<svg aria-label="0|0" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-0" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-0" x="5" y="65"/>
+						</svg>
+					</div>
+				</div>
+
+				<!-- الحالة 2: 6 أحجار أو أكثر من نفس الرقم -->
+				<div class="redo-case">
+					<p><strong>2) إذا كان لدى أي لاعب 6 أحجار أو أكثر تحمل نفس الرقم.</strong></p>
+					<div class="mini-row">
+						<span class="pill">مثال يد لاعب: 6 أحجار تحمل الرقم (0)</span>
+					</div>
+					<div>
+						<svg aria-label="1|0" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-1" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-0" x="5" y="65"/>
+						</svg>
+						<svg aria-label="2|0" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-2" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-0" x="5" y="65"/>
+						</svg>
+						<svg aria-label="0|4" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-0" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-4" x="5" y="65"/>
+						</svg>
+						<svg aria-label="3|3" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-3" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-3" x="5" y="65"/>
+						</svg>
+						<svg aria-label="0|6" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-0" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-6" x="5" y="65"/>
+						</svg>
+						<svg aria-label="0|2" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-0" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-2" x="5" y="65"/>
+						</svg>
+						<svg aria-label="0|0" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-0" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-0" x="5" y="65"/>
+						</svg>
+					</div>
+				</div>
+
+				<!-- الحالة 3: أول حجر يجعل الخصمين كليهما بلا حركة قانونية -->
+				<div class="redo-case">
+					<p><strong>3) إذا كان أول حجر في بداية الجولة يجعل لاعبي الخصم الاثنين <u>بلا حركة قانونية</u>، تُعاد الجولة.</strong></p>
+
+					<!-- مشهد مبسّط: 6|6 في الوسط، ثم لعب حجر يفتح نهايتين مستحيلتين على الخصمين (تمثيل توضيحي) -->
+					<div>
+						<div class="example">
+							<strong>مثال توزيع الأحجار بين اللاعبين:</strong>
+							<div class="hands" style="margin-top: 10px">
+								<div class="hand-row">
+									<span class="who">اللاعب 1</span>
+									<div class="hand-tiles">
+										<svg aria-label="6|6" class="tile-white tile-c" viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-6" x="5" y="65"/>
+										</svg>
+										<svg aria-label="6|5" class="tile-white tile-c" viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+										</svg>
+										<svg aria-label="5|2" class="tile-white tile-c" viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+										</svg>
+										<svg aria-label="3|1" class="tile-white tile-c" viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-3" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+										</svg>
+										<svg aria-label="0|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-0" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+										</svg>
+										<svg aria-label="2|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+										</svg>
+										<svg aria-label="4|6" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-6" x="5" y="65"/>
+										</svg> </div>
+								</div>
+								<div class="hand-row">
+									<span class="who">اللاعب 2</span>
+									<div class="hand-tiles">
+										<svg aria-label="0|4" class="tile-white tile-c" viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+											<use href="#half-0" x="5" y="5"/>
+											<line x1="0" y1="60" x2="60" y2="60"/>
+											<use href="#half-4" x="5" y="65"/>
+										</svg>
+										<svg aria-label="5|5" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+										</svg>
+										<svg aria-label="2|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+										</svg>
+										<svg aria-label="3|3" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-3" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-3" x="5" y="65"/>
+										</svg>
+										<svg aria-label="4|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+										</svg>
+										<svg aria-label="0|5" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-0" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+										</svg>
+										<svg aria-label="1|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-1" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+										</svg> </div>
+								</div>
+								<div class="hand-row">
+									<span class="who">اللاعب 3</span>
+									<div class="hand-tiles">
+										<svg aria-label="6|3" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-3" x="5" y="65"/>
+										</svg>
+										<svg aria-label="2|6" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+											<use href="#half-2" x="5" y="5"/>
+											<line x1="0" y1="60" x2="60" y2="60"/>
+											<use href="#half-6" x="5" y="65"/>
+										</svg>
+										<svg aria-label="4|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+										</svg>
+										<svg aria-label="6|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+										</svg>
+										<svg aria-label="5|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+										</svg>
+										<svg aria-label="4|6" class="tile-white tile-c" viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+											<use href="#half-4" x="5" y="5"/>
+											<line x1="0" y1="60" x2="60" y2="60"/>
+											<use href="#half-6" x="5" y="65"/>
+										</svg>
+										<svg aria-label="3|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-3" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-0" x="5" y="65"/>
+										</svg> </div>
+								</div>
+								<div class="hand-row">
+									<span class="who">اللاعب 4</span>
+									<div class="hand-tiles">
+										<svg aria-label="0|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+											<use href="#half-0" x="5" y="5"/>
+											<line x1="0" y1="60" x2="60" y2="60"/>
+											<use href="#half-2" x="5" y="65"/>
+										</svg>
+										<svg aria-label="5|4" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-4" x="5" y="65"/>
+										</svg>
+										<svg aria-label="2|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+										</svg>
+										<svg aria-label="3|5" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-3" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+										</svg>
+										<svg aria-label="1|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-1" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+										</svg>
+										<svg aria-label="0|4" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-0" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-4" x="5" y="65"/>
+										</svg>
+										<svg aria-label="0|3" class="tile-white tile-c"  viewBox="0 0 60 120">
+											<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-0" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-3" x="5" y="65"/>
+										</svg>
+									</div>
+									<p class="explain">
+										لو اللعب بدأ من عند اللاعب الأول وهو قام بلعب حجر 6|6
+										<br/>
+										حينها اللاعب الثاني واللاعب الرابع وهما لاعبي فريق الخصم ليس لديهم أي حجر فيه الرقم 6
+										<br/>
+										لذلك يجب إعادة توزيع الحجار عشوائيا من جديد
+									</p>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+
+						<p class="explain">المشهد توضيحي فقط: المقصود أن <em>أول حركة</em> تخلق حالة يستحيل معها على <strong>الخصمين الاثنين</strong> اللعب قانونيًا؛ عندها تُعاد الجولة فورًا.</p>
+					</div>
+
+					<!-- عند إعادة الجولة: يبدأ بـ 6|6 إلزاميًا -->
+				</div>
+
+
+			</div>
+			<hr/>
+		</div>
+	</section>
+	<section class="card is-violet" id="s5">
+		<h2 id="scoring">احتساب النتيجة</h2>
+		<div class="content">
+			<p>
+				يتم احتساب النقاط عند نهاية الجولة على حسب حالة انتهاء الجولة
+			</p>
+			<ul>
+				<li><strong>فوز بالوصول :</strong> أحد اللاعبين يلعب آخر حجر لديه.</li>
+				<li><strong>قفلة:</strong>لا أحد يستطيع اللعب</li>
+			</ul>
+
+
+			<div class="score-case">
+				<div class="score-title">الحالة ١ — فوز بالوصول </div>
+				<p>إذا تخلَّص اللاعب من كل أحجاره، تُحتسب نقاط الجولة لمصلحة <strong>فريقه</strong> بجمع نقاط الأحجار المتبقية في <strong>أيدي الفريق المقابل</strong> ثم يقسم المجموع على 10.
+					<br/>
+					(ملاحظة: في هذه الحالة غير مهم حجارة الفريق الفائز)</p>
+
+				<div class="team-badge"><strong>مثال توضيحي:</strong> اللاعب 1 أنهى الجولة (فريق A)، نجمع أحجار لاعبي الفريق B (اللاعب 2 واللاعب 4):</div>
+
+				<!-- اللاعب 2 -->
+				<div class="sum-row">
+					<span class="sum-badge">اللاعب 2</span>
+					<div class="pile">
+						<!-- 6|2 -->
+						<svg aria-label="6|2" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-6" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-2" x="5" y="65"/>
+						</svg>
+						<!-- 5|1 -->
+						<svg aria-label="5|1" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-5" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-1" x="5" y="65"/>
+						</svg>
+						<!-- 3|0 -->
+						<svg aria-label="6|2" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-3" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-0" x="5" y="65"/>
+						</svg>
+					</div>
+					<span class="equals">=</span><span><strong>17</strong> نقطة</span>
+				</div>
+
+				<!-- اللاعب 4 -->
+				<div class="sum-row">
+					<span class="sum-badge">اللاعب 4</span>
+					<div class="pile">
+						<!-- 4|4 -->
+						<svg aria-label="6|2" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-4" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-4" x="5" y="65"/>
+						</svg>
+						<!-- 2|1 -->
+						<svg aria-label="6|2" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-2" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-1" x="5" y="65"/>
+						</svg>
+					</div>
+					<span class="equals">=</span><span><strong>11</strong> نقطة</span>
+				</div>
+
+				<div class="sum-row">
+					<span class="sum-badge">مجموع فريق B</span>
+					<span class="equals">=</span>
+					<span><strong>17 + 11 = 28</strong> نقطة .</span>
+				</div>
+				<span>  ثم نقسمها على 10 </span> <br/>
+				<span><strong>28 ÷ 10 = 2</strong> تُحتسب لفريق A .</span>
+
+
+				<p class="note-variant">
+					<strong>ملاحظة:</strong>
+					نركز فقط على حجار فريق الخصم
+				</p>
+			</div>
+
+			<!-- الحالة 2: قفلة -->
+			<div class="score-case" style="border-inline-start-color:var(--warn);background:rgba(251,191,36,.06)">
+				<div class="score-title">الحالة ٢ — جولة قفلة (لا أحد يستطيع اللعب)</div>
+				<p>عند الإقفال، نقارن مجموع النقاط المتبقية لدى كل فريق. الفريق ذو <strong>المجموع الأقل</strong> يعتبر الفائز بالجولة.</p>
+
+				<div class="team-badge"><strong>مثال:</strong></div>
+
+				<!-- فريق A (الأقل) -->
+				<div class="sum-row">
+					<span class="sum-badge">فريق A</span>
+					<div class="pile">
+						<!-- 5|0 -->
+						<svg aria-label="5|0" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-5" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-0" x="5" y="65"/>
+						</svg>
+						<!-- 4|1 -->
+						<svg aria-label="4|1" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-4" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-1" x="5" y="65"/>
+						</svg>
+					</div>
+					<span class="equals">=</span><span><strong>10</strong> نقاط</span>
+				</div>
+
+				<!-- فريق B (الأعلى) -->
+				<div class="sum-row">
+					<span class="sum-badge">فريق B</span>
+					<div class="pile">
+						<!-- 6|6 -->
+						<svg aria-label="6|6" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-6" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-6" x="5" y="65"/>
+						</svg>
+						<!-- 2|2 -->
+						<svg aria-label="2|2" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-2" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-2" x="5" y="65"/>
+						</svg>
+					</div>
+					<span class="equals">=</span><span><strong>16</strong> نقطة</span>
+				</div>
+
+				<div class="sum-row">
+					<span class="sum-badge">الأقل يفوز (فريق A)</span>
+				</div>
+				<div>
+					يحتسب <strong>مجموع الخصم 16</strong>
+					<br/>
+					ثم نقسمها على 10.
+				</div>
+				<span>16 ÷ 10 = 1 </span> تُحسب لفريق A
+
+				<p class="note-variant">
+					<strong>ملاحظة:</strong>
+					لو صادف أن مجموع نقاط الفريقين متساوية فحينها لا يوجد فائز وتسمى هذه الحالة بهطة
+				</p>
+
+			</div>
+			<p class="explain">
+				<strong>ملاحظة:</strong>
+				إذا استمرت النتيجة 0 مقابل 0 لمدة ثلاث جولات متتالية ففي الجولة الرابعة يتم احتساب درجتين لكل فريق، فتصبح النتيجة 2 مقابل 2 لتسهيل كسب الدرجات
+			</p>
+
+			<hr/>
+		</div>
+	</section>
+	<section class="card is-violet" id="s6">
+		<h2 id="no-scoring">حالات عدم احتساب النتيجة</h2>
+		<div class="content">
+			<p>
+				القاعدة: إذا كانت <strong>نقاط الجولة &lt; 2</strong> فإنها <strong>لا تُحتسب</strong> في رصيد الفريق،
+				<strong>إلا</strong> إذا كان رصيد ذلك الفريق قبل هذه الجولة قد بلغ <strong>٢ نقطة فأكثر</strong>؛ عندها تُحتسب نقاط الجولة كاملة.
+			</p>
+
+
+			<div class="no-score-case">
+				<p class="case-title">الحالة أ — لا تُحتسب</p>
+				<div class="ledger">
+					<div class="pill"><strong>رصيد الفريق قبل الجولة:</strong> 0</div>
+					<div class="pill"><strong>نقاط هذه الجولة: </strong>19 نقطة</div>
+				</div>
+
+				<div class="sum-row">
+					<span class="sum-badge">مجموع الخصم </span>
+					<div class="pile">
+
+						<svg aria-label="5|4" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-5" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-4" x="5" y="65"/>
+						</svg>
+						<svg aria-label="6|4" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-6" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-4" x="5" y="65"/>
+						</svg>
+					</div>
+					<span class="equals">=</span><span><strong>19</strong> نقطة فقط</span>
+
+				</div>
+
+				<p class="note-variant">
+					لأن رصيد الفريق قبل هذه الجولة كان <strong>أقل من 2</strong>
+					ولأن في هذه الجولة حصل على
+					(19÷2) = 1
+					<strong>أقل من 2</strong> أيضًا،
+					فلا تحتسب هذه الدرجة ويبقى الفريق برصيد صفر
+				</p>
+			</div>
+
+			<div class="ok-score-case">
+				<p class="case-title">الحالة ب — تُحتسب</p>
+				<div class="ledger">
+					<div class="pill"><strong>رصيد الفريق قبل الجولة:</strong> 2</div>
+					<div class="pill"><strong>نقاط هذه الجولة: </strong>19 نقطة</div>
+				</div>
+
+				<div class="sum-row">
+					<span class="sum-badge">مجموع الخصم </span>
+					<div class="pile">
+
+						<svg aria-label="5|4" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-5" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-4" x="5" y="65"/>
+						</svg>
+						<svg aria-label="6|4" class="tile-white tile-c" viewBox="0 0 60 120">
+							<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+							<use href="#half-6" x="5" y="5"/>
+							<line x1="0" y1="60" x2="60" y2="60"/>
+							<use href="#half-4" x="5" y="65"/>
+						</svg>
+					</div>
+					<span class="equals">=</span><span><strong>19</strong> نقطة فقط</span>
+
+				</div>
+
+				<p class="note-variant">
+					لأن رصيد الفريق قبل هذه الجولة كان <strong>2 فأكثر</strong>
+					ونقاط هذه الجولة
+					(19÷2) = 1
+					مع أنها
+					<strong>أقل من 2</strong>
+					تحتسب هذه الدرجة ويضاف 1 إلى نتيجته السابقة فيصبح 3
+				</p>
+			</div>
+
+			<hr/>
+		</div>
+	</section>
+	<section class="card is-rose" id="s7">
+
+
+		<h2 id="white-rules">الوصول بالبيضاء و«قتل البيضاء»</h2>
+		<div class="content">
+			<p>
+				توجد حالتان تمنحان الفريق <strong>مكافأة +5 درجات</strong> تُضاف فوق درجات الجولة الأساسية:
+			</p>
+
+			<!-- الحالة 1: الوصول بالبيضاء -->
+			<div class="bonus-case">
+				<p class="case-title">الحالة ١ — الوصول بالبيضاء (+5)</p>
+				<p>إذا أنهى اللاعب الجولة وكان <strong>آخر حجر يلعبه هو البياض المعترض (0|0)</strong>، تحتسب لفريقه <span class="badge">+5</span> نقاط إضافية.</p>
+
+				<div class="mini-board">
+					<svg aria-label="0|0" class="tile-white tile-c" viewBox="0 0 60 120">
+						<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+						<use href="#half-0" x="5" y="5"/>
+						<line x1="0" y1="60" x2="60" y2="60"/>
+						<use href="#half-0" x="5" y="65"/>
+					</svg>
+					<span class="equals">+</span>
+					<span class="badge">انتهت الجولة</span>
+					<span class="equals">=</span>
+					<span class="badge">5 درجات إضافية</span>
+				</div>
+
+				<p class="explain">
+					ملاحظة:
+					يجب أن يكون لدى الفريق الفائز درجتين فأكثر من قبل
+					أو كسب درجة في هذه الجولة حتى يتم احتساب خمس درجات الوصول بالبيضاء ما لم فلا تحتسب
+				</p>
+			</div>
+
+			<!-- الحالة 2: قتل البيضاء -->
+			<div class="bonus-kill">
+				<p class="case-title">الحالة ٢ — «قتل البيضاء» (+5)</p>
+				<p>
+					إذا كان جميع حجار البياض كلها لُعبت في الميدان ولم يبقى إلا حجر معترض البياض موجودة عند أحد اللاعبين فحينها تكون معترض البياض ماتت في يد اللاعب
+					فإذا الفريق الخصم هو الذي انهى الجولة بالوصول فالفريق الخاسر الذي ماتت بيده البيضاء يكسب خمس درجات إضافية.
+				</p>
+
+				<div class="example">
+					<strong>مثال 1 انتهت الجولة على هذا النحو:</strong>
+					<div class="hands" style="margin-top: 10px">
+						<div class="hand-row">
+							<span class="who">اللاعب 1</span>
+							<div class="hand-tiles">
+								وصل فانتهت الأحجار من يده
+							</div>
+						</div>
+						<div class="hand-row">
+							<span class="who">اللاعب 2</span>
+							<div class="hand-tiles">
+								<svg aria-label="6|4" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-4" x="5" y="65"/>
+								</svg>
+								<svg aria-label="5|5" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-5" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-5" x="5" y="65"/>
+								</svg>
+								<svg aria-label="2|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+								</svg>
+							</div>
+						</div>
+						<div class="hand-row">
+							<span class="who">اللاعب 3</span>
+							<div class="hand-tiles">
+								<svg aria-label="6|3" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-3" x="5" y="65"/>
+								</svg>
+								<svg aria-label="4|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+								</svg>
+							</div>
+						</div>
+						<div class="hand-row">
+							<span class="who">اللاعب 4</span>
+							<div class="hand-tiles">
+								<svg aria-label="0|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+									<use href="#half-0" x="5" y="5"/>
+									<line x1="0" y1="60" x2="60" y2="60"/>
+									<use href="#half-0" x="5" y="65"/>
+								</svg>
+							</div>
+						</div>
+					</div>
+					في هذا المثال:
+					<br>
+					لأن اللاعب 1 هو الذي وصل فيكون فريقه الفائز (اللاعبان 1 و 3)
+					<br>
+					اللاعبان 2 و 4 هما فريق الخصم
+					<br>
+					اللاعب 4 لديه حجر بياض المعترض
+					<br>
+					إذا دققنا في جميع الحجار المتبقية في الأيدي فلا يوجد أي حجر فيه بياض عدا حجر بياض المعترض الموجود مع اللاعب 4.
+					<br>
+					بهذا تكون حجر معترض البياض ماتت بيد اللاعب 4 ويكسب الفريق الفائز 5 درجات إضافية
+					<br>
+					مجموع النقاط في آيدي الفريق الخصم هي 23 نقطة
+					<br>
+					ثم نقسمها على 10
+					<br>
+					23 ÷ 10 = 2
+					<br>
+					فيكسف الفريق الفائز 2 بالإضافة إلى 5 موت البيضاء فيكسب من هذه الجولة 7 درجات
+					<br>
+					<p class="explain">
+						الخلاصة: تحويل النهاية المفتوحة من <strong>0</strong> إلى رقم آخر بشكل يمنع خصمك من استخدام البياض ويؤدي إلى <em>جلا</em> ثم انتهاء الجولة لصالحك
+						يُعتبر «قتل البيضاء» ويمنح <strong>+5</strong>.
+					</p>
+				</div>
+
+
+				<div class="example">
+					<strong>مثال 2 انتهت الجولة على هذا النحو:</strong>
+					<div class="hands" style="margin-top: 10px">
+						<div class="hand-row">
+							<span class="who">اللاعب 1</span>
+							<div class="hand-tiles">
+								وصل فانتهت الأحجار من يده
+							</div>
+						</div>
+						<div class="hand-row">
+							<span class="who">اللاعب 2</span>
+							<div class="hand-tiles">
+								<svg aria-label="6|4" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-4" x="5" y="65"/>
+								</svg>
+								<svg aria-label="5|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+									<use href="#half-5" x="5" y="5"/>
+									<line x1="0" y1="60" x2="60" y2="60"/>
+									<use href="#half-0" x="5" y="65"/>
+								</svg>
+								<svg aria-label="2|1" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-2" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-1" x="5" y="65"/>
+								</svg>
+							</div>
+						</div>
+						<div class="hand-row">
+							<span class="who">اللاعب 3</span>
+							<div class="hand-tiles">
+								<svg aria-label="6|3" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-6" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-3" x="5" y="65"/>
+								</svg>
+								<svg aria-label="4|2" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/><use href="#half-4" x="5" y="5"/><line x1="0" y1="60" x2="60" y2="60"/><use href="#half-2" x="5" y="65"/>
+								</svg>
+							</div>
+						</div>
+						<div class="hand-row">
+							<span class="who">اللاعب 4</span>
+							<div class="hand-tiles">
+								<svg aria-label="0|0" class="tile-white tile-c"  viewBox="0 0 60 120">
+									<rect rx="10" ry="10" fill="#fff" stroke="#cbd5e1"/>
+									<use href="#half-0" x="5" y="5"/>
+									<line x1="0" y1="60" x2="60" y2="60"/>
+									<use href="#half-0" x="5" y="65"/>
+								</svg>
+							</div>
+						</div>
+					</div>
+					في هذا المثال:
+					<br>
+					لأن اللاعب 1 هو الذي وصل فيكون فريقه الفائز (اللاعبان 1 و 3)
+					<br>
+					اللاعبان 2 و 4 هما فريق الخصم
+					<br>
+					اللاعب 4 لديه حجر بياض المعترض
+					<br>
+					إذا دققنا في جميع الحجار المتبقية في الأيدي فيوجد حجر فيه بياض عند اللاعب 2.
+					<br>
+					بهذا تكون حجر معترض البياض لم تمت بيد اللاعب 4 فلا يكسب الفريق الفائز 5 درجات إضافية
+					<br>
+					مجموع النقاط في آيدي الفريق الخصم هي 18 نقطة
+					<br>
+					ثم نقسمها على 10
+					<br>
+					18 ÷ 10 = 1
+					<br>
+					فيكسف الفريق الفائز 1 من هذه الجولة
+					<br>
+				</div>
+
+
+
+
+
+
+			</div>
+
+		</div>
+	</section>
+</div>
+<script>
+	document.querySelectorAll('.card h2').forEach(h2 => {
+      h2.addEventListener('click', () => {
+        const card = h2.parentElement;
+        const isOpen = card.classList.contains('active');
+
+        // أغلق كل الأقسام
+        document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
+
+        // فتح/إغلاق القسم الحالي
+        if (!isOpen) {
+          card.classList.add('active');
+
+          // تأخير بسيط لانتظار التمدد ثم التمرير لأعلى العنوان
+          setTimeout(() => {
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 200);
+        }
+
+        // تحديث aria
+        document.querySelectorAll('.card h2').forEach(h => {
+          h.setAttribute('aria-expanded', h.parentElement.classList.contains('active') ? 'true' : 'false');
+        });
+      });
+    });
+</script>
+
+</body>
+</html>
